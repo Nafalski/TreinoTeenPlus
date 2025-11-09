@@ -1,0 +1,1496 @@
+/* =================================== 
+   TreinoTeen+ - Estilos Principais (versão corrigida tema claro/escuro)
+   =================================== */
+
+/* Reset e Variáveis */
+* { /* reset básico para consistência de box-model */
+    margin: 0; /* zera margens */
+    padding: 0; /* zera paddings */
+    box-sizing: border-box; /* inclui borda e padding no cálculo do tamanho */
+}
+
+:root { /* tokens de design base (modo padrão/escuro original do site) */
+    /* Paleta de Cores Vibrantes */
+    --primary-blue: #0B1D3A; /* azul principal do fundo */
+    --primary-cyan: #174B8C; /* ciano de apoio */
+    --primary-yellow: #B0B0B0; /* (não-amarelo) label legado usado como cinza */
+    --primary-red: #E63946; /* vermelho de ação */
+    --primary-purple: #A78BFA; /* roxo de apoio */
+    --primary-green: #10B981; /* verde de sucesso */
+    
+    /* Cores Neutras */
+    --dark: #000000; /* preto puro */
+    --dark-light: #101826; /* preto suavizado */
+    --light: #0A152B; /* azul muito escuro usado como “light” do tema escuro */
+    --white: #ffffff; /* branco */
+    --gray: #B0B0B0; /* cinza de texto secundário */
+    --gray-light: #1C2D4E; /* cinza/azul para divisórias escuras */
+    
+    /* Tipografia */
+    --font-primary: 'Poppins', sans-serif; /* fonte base */
+    --font-weight-light: 300; /* pesos utilitários */
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Espaçamentos */
+    --spacing-xs: 0.5rem;  /* 8px */
+    --spacing-sm: 1rem;    /* 16px */
+    --spacing-md: 1.5rem;  /* 24px */
+    --spacing-lg: 2rem;    /* 32px */
+    --spacing-xl: 3rem;    /* 48px */
+    --spacing-xxl: 4rem;   /* 64px */
+    
+    /* Bordas */
+    --border-radius: 1rem;     /* raio padrão de cantos */
+    --border-radius-lg: 2rem;  /* raio grande */
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);  /* sombra leve */
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);  /* sombra média */
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15); /* sombra forte */
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);  /* sombra extra */
+
+    /* Fallbacks necessários antes de uso por componentes */
+    --surface: #0f1a2e;   /* superfície escura (fallback até overrides) */
+    --surface-2: #0c1529; /* superfície 2 (fallback) */
+    --border: rgba(231,237,246,0.12); /* borda translúcida (fallback) */
+    --text: #e7edf6;      /* texto claro (fallback) */
+    --accent: #E63946;    /* acento (fallback) */
+}
+
+/* Base */
+body { /* base de tipografia e plano de fundo inicial */
+    font-family: var(--font-primary); /* fonte global */
+    font-weight: var(--font-weight-regular); /* peso padrão */
+    color: #EEF2F7; /* cor de texto padrão no tema original */
+    background-color: var(--primary-blue); /* fundo escuro azulado */
+    line-height: 1.6; /* altura de linha confortável */
+    overflow-x: hidden; /* evita scroll horizontal por overflow */
+}
+
+.container { /* contêiner central com width máxima */
+    width: 100%; /* ocupar largura total disponível */
+    max-width: 1200px; /* largura máxima do conteúdo */
+    margin: 0 auto; /* centraliza */
+    padding: 0 var(--spacing-md); /* respiro lateral */
+}
+
+/* ===================================
+   Navegação
+   =================================== */
+.navbar { /* barra fixa no topo */
+    background: var(--primary-blue); /* fundo combinando com body */
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06); /* linha sutil inferior */
+    position: sticky; /* fixa ao rolar */
+    top: 0; /* fixa no topo */
+    z-index: 1000; /* acima do conteúdo */
+    padding: var(--spacing-sm) 0; /* vertical */
+}
+
+.navbar .container { /* layout da navbar */
+    display: flex; /* linha */
+    justify-content: space-between; /* separa logo e menu */
+    align-items: center; /* alinha verticalmente */
+}
+
+.logo { /* marca textual */
+    font-size: 1.5rem; /* tamanho maior */
+    font-weight: var(--font-weight-extrabold); /* bem forte */
+    color: var(--white); /* branco */
+    text-decoration: none; /* remove sublinhado */
+}
+
+.logo a { /* garante que link da logo herde cor/decoração */
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.logo-plus { /* “+” em vermelho na marca */
+    color: var(--primary-red);
+}
+
+.nav-menu { /* lista de navegação */
+    display: flex; /* itens em linha */
+    list-style: none; /* remove marcadores */
+    gap: var(--spacing-md); /* espaço entre itens */
+    align-items: center; /* alinha verticalmente */
+}
+
+.nav-menu a { /* links do menu */
+    text-decoration: none; /* sem sublinhado */
+    color: var(--white); /* branco para contraste */
+    font-weight: var(--font-weight-semibold); /* semi-bold */
+    padding: var(--spacing-xs) var(--spacing-sm); /* área clicável */
+    border-radius: var(--border-radius); /* cantos arredados */
+    transition: background 0.3s ease, color 0.3s ease; /* transições específicas */
+}
+
+.nav-menu a:hover,
+.nav-menu a.active { /* estado hover/ativo do item */
+    background: var(--primary-red); /* destaque vermelho */
+    color: var(--white); /* texto branco */
+}
+
+.mobile-menu-toggle { /* botão hamburguer (esconde em desktop) */
+    display: none; /* aparece no mobile via @media */
+    flex-direction: column; /* três barras empilhadas */
+    gap: 4px; /* espaçamento entre barras */
+    background: none; /* sem fundo */
+    border: none; /* sem borda */
+    cursor: pointer; /* cursor de clique */
+    padding: var(--spacing-xs); /* área clicável */
+}
+
+.mobile-menu-toggle span { /* as barrinhas do hamburguer */
+    width: 25px; /* largura */
+    height: 3px; /* espessura */
+    background: var(--white); /* cor */
+    border-radius: 2px; /* cantos arredondados */
+    transition: transform 0.3s ease, background 0.3s ease; /* transições */
+}
+
+/* ===================================
+   Seletor de Idioma
+   =================================== */
+.language-selector-wrapper { /* espaçamento do seletor ao lado do menu */
+    margin-left: var(--spacing-sm);
+}
+
+.language-select { /* select estilizado */
+    padding: var(--spacing-xs) var(--spacing-sm); /* interno */
+    border: 2px solid var(--primary-blue); /* borda */
+    border-radius: var(--border-radius); /* cantos */
+    background: var(--white); /* fundo claro */
+    color: var(--dark); /* texto escuro */
+    font-family: var(--font-primary); /* fonte consistente */
+    font-weight: var(--font-weight-semibold); /* peso */
+    font-size: 0.9rem; /* ajuste tamanho */
+    cursor: pointer; /* cursor de clique */
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* transições focadas */
+    outline: none; /* remove contorno padrão */
+}
+
+.language-select:hover { /* hover do select */
+    background: var(--primary-blue); /* inverte cores */
+    color: var(--white);
+    transform: translateY(-2px); /* micro elevação */
+    box-shadow: var(--shadow-md); /* sombra média */
+}
+
+.language-select:focus { /* foco acessível */
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2); /* anel de foco */
+}
+
+/* ===================================
+   Hero Section
+   =================================== */
+.hero { /* seção hero com gradiente e bolha sutil */
+    padding: var(--spacing-xxl) 0; /* respiro vertical grande */
+    background: radial-gradient(60% 100% at 20% 0%, #11294F 0%, #0B1D3A 60%, #071326 100%); /* gradiente escuro */
+    color: var(--white); /* texto claro */
+    position: relative; /* para posicionar pseudo-elementos */
+    overflow: hidden; /* esconde excedentes das bolhas */
+}
+
+.hero::before { /* bolha decorativa suave atrás do conteúdo */
+    content: ''; /* necessário para pseudo-elemento */
+    position: absolute; /* posiciona livremente */
+    top: -30%; /* desloca para cima */
+    right: -10%; /* desloca para a direita */
+    width: 520px; /* tamanho da bolha */
+    height: 520px;
+    background: linear-gradient(135deg, rgba(230,57,70,0.15), rgba(17,41,79,0.2)); /* gradiente suave vermelho/azul */
+    border-radius: 50%; /* círculo */
+    z-index: 0; /* fica atrás do conteúdo */
+    filter: blur(0); /* explícito para compatibilidade */
+    will-change: transform, opacity; /* micro-otimização se animar futuramente */
+}
+
+.hero-content { /* grid de 2 colunas (texto/ilustração) */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* duas colunas iguais */
+    gap: var(--spacing-xl); /* espaço entre colunas */
+    align-items: center; /* alinha verticalmente */
+    position: relative; /* acima das bolhas */
+    z-index: 1; /* garante que fique sobre ::before */
+}
+
+.hero-title { /* título principal (H1) */
+    font-size: 3.2rem; /* grande */
+    font-weight: var(--font-weight-extrabold); /* muito forte */
+    margin-bottom: var(--spacing-sm); /* respiro inferior */
+    line-height: 1.2; /* altura de linha justa */
+}
+
+.hero-slogan { /* subtítulo/slogan */
+    font-size: 1.3rem; 
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-md);
+    color: var(--gray); /* tom secundário */
+}
+
+.hero-description { /* parágrafo explicativo */
+    font-size: 1.05rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray); /* cinza legível no escuro */
+    line-height: 1.8; /* leitura confortável */
+}
+
+.hero-buttons { /* grupo de CTAs */
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap; /* quebra em múltiplas linhas no mobile */
+}
+
+.hero-image { /* container da ilustração */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-illustration { /* moldura translúcida para a ilustração */
+    width: 100%;
+    max-width: 400px; /* limita tamanho */
+    height: 400px; /* quadrado */
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(230,57,70,0.12)); /* vidro colorido */
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px); /* efeito vidro */
+    border: 1px solid rgba(255,255,255,0.08); /* borda translúcida */
+}
+
+.hero-illustration svg { /* garante que SVG ocupe a moldura */
+    width: 100%;
+    height: 100%;
+}
+
+/* ===================================
+   Botões
+   =================================== */
+.btn { /* base de botões */
+    display: inline-block; /* respeita width/height e fica em linha */
+    padding: var(--spacing-sm) var(--spacing-lg); /* área clicável */
+    border-radius: var(--border-radius); /* cantos arredondados */
+    text-decoration: none; /* sem sublinhado */
+    font-weight: var(--font-weight-semibold); /* peso semi-bold */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* transições específicas */
+    border: none; /* remove borda padrão do button */
+    cursor: pointer; /* cursor de ação */
+    font-size: 1rem; /* tamanho legível */
+    text-align: center; /* centraliza label */
+}
+
+.btn-primary { /* botão primário vermelho */
+    background: var(--primary-red);
+    color: var(--white);
+    box-shadow: 0 8px 20px rgba(230,57,70,0.25); /* glow */
+}
+
+.btn-primary:hover { /* estado hover do primário */
+    transform: translateY(-2px); /* leve elevação */
+    box-shadow: 0 12px 28px rgba(230,57,70,0.35); /* sombra mais forte */
+    filter: brightness(1.02); /* 2% mais claro */
+}
+
+.btn-secondary { /* botão secundário contornado */
+    background: transparent; /* sem fundo */
+    color: var(--white); /* texto branco sobre escuro */
+    border: 2px solid var(--primary-red); /* contorno vermelho */
+    box-shadow: none; /* sem sombra */
+}
+
+.btn-secondary:hover { /* hover do secundário */
+    transform: translateY(-2px);
+    background: rgba(230,57,70,0.1); /* leve preenchimento */
+}
+
+.btn-large { /* tamanho maior */
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1.1rem;
+}
+
+.btn-download { /* CTA de download com tipografia levemente maior */
+    font-size: 1.2rem;
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
+/* ===================================
+   Frase Motivacional do Dia
+   =================================== */
+.daily-motivation { /* faixa com gradiente escuro */
+    padding: var(--spacing-xl) 0;
+    background: linear-gradient(135deg, #0D2345, #0B1D3A);
+}
+
+.motivation-card { /* cartão principal da frase */
+    background: #0F274B; /* azul escuro */
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+    max-width: 900px; /* limita largura */
+    margin: 0 auto; /* centraliza */
+    border: 1px solid #223A66; /* borda sutil */
+}
+
+.motivation-icon { /* ícone grande (emoji/icone) */
+    font-size: 3rem;
+    flex-shrink: 0; /* não encolhe */
+}
+
+.motivation-content { /* área de texto */
+    flex: 1; /* ocupa o restante */
+}
+
+.motivation-content h3 { /* título do bloco */
+    color: var(--white);
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.2rem;
+}
+
+.motivation-text { /* frase do dia */
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray); /* cinza para suavidade */
+    line-height: 1.6;
+}
+
+/* =============================
+   Botão "Atualizar frase" aprimorado
+   ============================= */
+.btn-refresh { /* botão circular com ícone */
+  width: 60px; /* diâmetro */
+  height: 60px;
+  border-radius: 50%; /* círculo */
+  background: var(--surface); /* usa tokens do tema */
+  color: var(--text);
+  border: 2px solid var(--border);
+  font-size: 1.7rem; /* tamanho do ícone */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* elevação */
+  transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease; /* transições específicas */
+}
+
+.btn-refresh:hover { /* rotação em hover */
+  transform: rotate(180deg) scale(1.08); /* gira e cresce levemente */
+  background: var(--surface-2); /* superfície alternativa */
+  color: var(--accent); /* usa acento do tema */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* sombra mais forte */
+}
+
+.btn-refresh:active { /* feedback ao clique */
+  transform: scale(0.96); /* ligeiro “press” */
+}
+
+.btn-refresh:focus { /* foco acessível */
+  outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent); /* anel com acento */
+  outline-offset: 2px; /* separa do botão */
+}
+
+/* Ajuste de alinhamento para telas menores */
+@media (max-width: 768px) {
+  .btn-refresh { /* reduz no tablet/phone */
+    width: 54px;
+    height: 54px;
+    font-size: 1.5rem;
+  }
+}
+
+/* ===================================
+   Features Preview
+   =================================== */
+.features-preview { /* seção com cards de recursos */
+    padding: var(--spacing-xxl) 0;
+    background: var(--light); /* azul escuro */
+}
+
+.section-title { /* título genérico de seção */
+    text-align: center; 
+    font-size: 2.2rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-xl);
+    color: var(--white);
+}
+
+.features-grid { /* grid responsivo de cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* se adapta */
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.feature-card { /* card individual */
+    background: #0F274B;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; /* transições específicas */
+    border: 1px solid #223A66;
+}
+
+.feature-card:hover { /* efeito hover */
+    transform: translateY(-5px); 
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-red); /* borda em vermelho */
+}
+
+.feature-icon { /* ícone grande no topo do card */
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-card h3 { /* título do card */
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--white);
+}
+
+.feature-card p { /* texto do card */
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.features-cta { /* container para botão/cta final */
+    text-align: center;
+}
+
+/* ===================================
+   Páginas Internas
+   =================================== */
+.page-header { /* faixa do topo nas páginas internas */
+    background: linear-gradient(135deg, #0B1D3A, #000000); /* gradiente escuro */
+    color: var(--white);
+    padding: var(--spacing-xxl) 0;
+    text-align: center;
+}
+
+.page-title { /* título grande da página */
+    font-size: 3rem;
+    font-weight: var(--font-weight-extrabold);
+    margin-bottom: var(--spacing-sm);
+}
+
+.page-subtitle { /* subtítulo menor */
+    font-size: 1.3rem;
+    opacity: 0.9; /* levemente translúcido */
+}
+
+.about-content,
+.features-detailed { /* áreas internas padrão */
+    padding: var(--spacing-xxl) 0;
+}
+
+.about-section { /* grid com texto e imagem */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+    margin-bottom: var(--spacing-xxl);
+}
+
+.about-text h2 { /* título secundário */
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--white);
+}
+
+.about-text p { /* parágrafos internos */
+    margin-bottom: var(--spacing-md);
+    line-height: 1.8;
+    color: var(--gray);
+    font-size: 1.05rem;
+}
+
+.about-image,
+.feature-main-image { /* centraliza ilustrações */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustration-box,
+.feature-illustration { /* molduras translúcidas */
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, rgba(230,57,70,0.15), rgba(17,41,79,0.35));
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid #223A66;
+}
+
+.emoji-large,
+.emoji-feature { /* emojis grandes de apoio visual */
+    font-size: 8rem;
+}
+
+/* ===================================
+   Benefícios
+   =================================== */
+.benefits-section { /* seção de benefícios */
+    margin-top: var(--spacing-xxl);
+}
+
+.benefits-section h2 { /* título centralizado */
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: var(--spacing-xl);
+    color: var(--white);
+}
+
+.benefits-grid { /* grid responsivo */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.benefit-card { /* cartão de benefício */
+    background: #0F274B;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-top: 4px solid var(--primary-red); /* barra superior */
+}
+
+.benefit-card:hover { /* hover com elevação */
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.benefit-icon { /* ícone grande */
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.benefit-card h3 { /* título do benefício */
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--white);
+}
+
+.benefit-card p { /* texto do benefício */
+    color: var(--gray);
+    line-height: 1.7;
+}
+
+/* ===================================
+   Missão
+   =================================== */
+.mission-section { /* espaçamento superior */
+    margin-top: var(--spacing-xxl);
+}
+
+.mission-card { /* cartão de missão com gradiente */
+    background: linear-gradient(135deg, #0E2548, #0B1D3A);
+    color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid #223A66;
+}
+
+.mission-card h2 { /* título da missão */
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.mission-text { /* texto em itálico */
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.95; /* suaviza */
+}
+
+.mission-signature { /* assinatura/autor */
+    font-weight: var(--font-weight-semibold);
+    opacity: 0.9;
+}
+
+/* ===================================
+   Recursos Detalhados
+   =================================== */
+.feature-main { /* bloco com texto+imagem alternado */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+    margin-bottom: var(--spacing-xxl);
+}
+
+.feature-main.reverse { /* inverte ordem visual via bidi */
+    direction: rtl;
+}
+
+.feature-main.reverse > * { /* normaliza direção do conteúdo interno */
+    direction: ltr;
+}
+
+.feature-main-content h2 { /* título do recurso */
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--white);
+}
+
+.feature-main-content p { /* descrição do recurso */
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-list { /* lista sem marcadores */
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li { /* itens com respiro e tipografia */
+    padding: var(--spacing-xs) 0;
+    font-size: 1.05rem;
+    color: var(--gray);
+    line-height: 1.8;
+}
+
+/* ===================================
+   CTA Section
+   =================================== */
+.cta-section { /* faixa com gradiente escuro */
+    padding: var(--spacing-xxl) 0;
+    background: linear-gradient(135deg, #0B1D3A, #000000);
+}
+
+.cta-card { /* cartão central do CTA */
+    background: #142F59;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    max-width: 700px;
+    margin: 0 auto;
+    border: 1px solid #223A66;
+}
+
+.cta-card h2 { /* título do CTA */
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--white);
+}
+
+.cta-card p { /* descrição do CTA */
+    font-size: 1.05rem;
+    color: var(--gray);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ===================================
+   Download Section
+   =================================== */
+.download-section { /* seção para baixar app/arquivos */
+    padding: var(--spacing-xxl) 0;
+}
+
+.download-content { /* grid de cards de download */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xxl);
+}
+
+.download-card { /* card de download */
+    background: #0F274B;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    border: 1px solid #223A66;
+}
+
+.download-card:hover { /* hover com destaque */
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-red);
+}
+
+.download-icon { /* ícone grande do card */
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.download-card h2 { /* título do card */
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--white);
+}
+
+.download-card p { /* descrição do card */
+    color: var(--gray);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.7;
+}
+
+.download-info { /* blocos de meta-informação */
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--gray-light);
+    text-align: left;
+}
+
+.download-info p { /* linhas de informação */
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+}
+
+.qrcode-container { /* moldura para QR */
+    display: flex;
+    justify-content: center;
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-md);
+    background: #142F59;
+    border-radius: var(--border-radius);
+    border: 1px solid #223A66;
+}
+
+.qr-hint { /* legenda/ajuda do QR */
+    margin-top: var(--spacing-md);
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.pwa-instructions { /* instruções de PWA */
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--gray-light);
+    text-align: left;
+}
+
+.pwa-instructions h3 { /* título de instruções */
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--dark); /* contrasta em fundo claro */
+}
+
+.pwa-instructions ol { /* lista numerada */
+    padding-left: var(--spacing-lg);
+}
+
+.pwa-instructions li { /* itens das instruções */
+    margin-bottom: var(--spacing-xs);
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* ===================================
+   Installation Section
+   =================================== */
+.installation-section { /* faixa da instalação */
+    padding: var(--spacing-xxl) 0;
+    background: #0A1E3C; /* azul escuro */
+}
+
+.installation-steps { /* grid de passos */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.step-card { /* cartão de passo */
+    background: #0F274B;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    position: relative; /* para elementos decorativos se necessário */
+    border: 1px solid #223A66;
+}
+
+.step-number { /* número do passo (medalhão) */
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-cyan));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    margin: 0 auto var(--spacing-md);
+}
+
+.step-card h3 { /* título do passo */
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--dark); /* pensado para fundos claros (ajustado por overrides do tema) */
+}
+
+.step-card p { /* descrição do passo */
+    color: var(--gray);
+    line-height: 1.7;
+}
+
+.security-note { /* bloco de segurança */
+    background: #0F274B;
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #223A66;
+}
+
+.security-icon { /* ícone grande */
+    font-size: 3rem;
+    flex-shrink: 0; /* não encolhe */
+}
+
+.security-text h3 { /* título da nota */
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--white);
+}
+
+.security-text p { /* descrição da nota */
+    color: var(--gray);
+    line-height: 1.7;
+}
+
+/* ===================================
+   Footer
+   =================================== */
+.footer { /* rodapé escuro */
+    background: #000000; /* preto */
+    color: var(--white);
+    padding: var(--spacing-xl) 0 var(--spacing-md);
+}
+
+.footer-content { /* grid do rodapé */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.footer-section h3,
+.footer-section h4 { /* títulos das colunas do rodapé */
+    margin-bottom: var(--spacing-md);
+    color: var(--white);
+}
+
+.footer-logo { /* marca no rodapé */
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-extrabold);
+}
+
+.footer-section p { /* textos descritivos */
+    color: var(--gray-light);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.6;
+}
+
+.footer-section ul { /* lista de links */
+    list-style: none;
+}
+
+.footer-section ul li { /* espaçamento entre links */
+    margin-bottom: var(--spacing-xs);
+}
+
+.footer-section a { /* links do rodapé */
+    color: var(--gray-light);
+    text-decoration: none;
+    transition: color 0.3s ease; /* transição focada */
+}
+
+.footer-section a:hover { /* hover do link do rodapé */
+    color: var(--primary-red);
+}
+
+.social-links { /* coluna de redes sociais */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.social-links a { /* link social com ícone + texto */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.social-icon { /* tamanho do ícone social */
+    font-size: 1.2rem;
+}
+
+.footer-bottom { /* linha inferior do rodapé */
+    text-align: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* divisória */
+    color: var(--gray-light);
+}
+
+/* ===================================
+   Responsividade (Mobile-First)
+   =================================== */
+@media (max-width: 768px) {
+    /* Navegação Mobile */
+    .mobile-menu-toggle {
+        display: flex; /* mostra botão hamburguer */
+    }
+    
+    .nav-menu {
+        position: fixed; /* menu móvel sobrepõe conteúdo */
+        top: 60px; /* abaixo da navbar */
+        left: -100%; /* escondido inicialmente */
+        width: 100%;
+        background: var(--primary-blue); /* fundo consistente */
+        flex-direction: column; /* itens empilhados */
+        padding: var(--spacing-lg);
+        box-shadow: var(--shadow-lg);
+        transition: left 0.3s ease; /* animação de slide */
+    }
+    
+    .nav-menu.active {
+        left: 0; /* revela menu */
+    }
+    
+    .language-selector-wrapper {
+        margin-left: 0; /* reseta alinhamento */
+        margin-top: var(--spacing-sm);
+        width: 100%; /* ocupa largura */
+    }
+    
+    .language-select {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    /* Hero */
+    .hero-content {
+        grid-template-columns: 1fr; /* empilha colunas */
+        text-align: center; /* centraliza textos */
+    }
+    
+    .hero-title {
+        font-size: 2.5rem; /* menor para telas menores */
+    }
+    
+    .hero-slogan {
+        font-size: 1.2rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center; /* centraliza CTAs */
+    }
+    
+    /* Cards e Grids */
+    .features-grid,
+    .benefits-grid,
+    .download-content,
+    .installation-steps {
+        grid-template-columns: 1fr; /* empilha */
+    }
+    
+    /* Páginas Internas */
+    .about-section,
+    .feature-main {
+        grid-template-columns: 1fr; /* empilha */
+    }
+    
+    .feature-main.reverse {
+        direction: ltr; /* evita inversão no mobile */
+    }
+    
+    .page-title {
+        font-size: 2rem; /* título menor */
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Motivação */
+    .motivation-card {
+        flex-direction: column; /* empilha conteúdo do card */
+        text-align: center;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .social-links {
+        align-items: center; /* centraliza ícones */
+    }
+    
+    /* Download */
+    .download-card {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    /* Security Note */
+    .security-note {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem; /* título ainda menor */
+    }
+    
+    .hero-slogan {
+        font-size: 1rem; /* subtítulo menor */
+    }
+    
+    .btn {
+        width: 100%; /* CTAs full-width no mobile pequeno */
+    }
+    
+    .hero-buttons {
+        flex-direction: column; /* CTAs empilhados */
+    }
+    
+    .motivation-text {
+        font-size: 1.1rem; /* legibilidade */
+    }
+    
+    .emoji-large,
+    .emoji-feature {
+        font-size: 5rem; /* reduz emojis grandes */
+    }
+}
+
+/* ===============================
+   LOGO NA NAVBAR (CANTO ESQUERDO)
+   =============================== */
+.nav-left { /* agrupa logo e elementos à esquerda da navbar */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img { /* imagem da logo */
+    height: 45px;
+    width: auto;
+    border-radius: 8px;
+    transition: transform 0.2s ease; /* micro zoom */
+}
+
+.logo-img:hover { /* leve feedback hover */
+    transform: scale(1.05);
+}
+
+/* Botões com brilho moderno */
+.btn { /* complementa base do botão com efeito shine */
+    position: relative; /* para ::before */
+    overflow: hidden; /* esconde brilho que passa da borda */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* já definido acima; mantido consistente */
+}
+
+.btn::before { /* faixa brilhante em diagonal */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%; /* começa fora à esquerda */
+    width: 50%;  /* largura da faixa */
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(255,255,255,0)); /* brilho degradê */
+    transform: skewX(-25deg); /* inclina a faixa */
+    transition: left 0.6s ease; /* animação de passagem */
+}
+
+.btn:hover::before { /* passa por cima */
+    left: 125%; /* sai à direita */
+}
+
+.btn:hover { /* elevação + sombra */
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(230,57,70,0.35);
+}
+
+.feature-icon, .social-icon { /* animação de ícones em cards e rodapé */
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.feature-icon:hover, .social-icon:hover { /* efeito hover para ícones */
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* ===============================
+   Fundo equilibrado com bolhas (todas as páginas)
+   =============================== */
+.hero, .page-header { /* garante contexto para pseudo-elementos */
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0B1D3A, #000000); /* fallback base */
+}
+
+/* Camada 1 - bolhas principais */
+.hero::before,
+.page-header::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* cobre toda a área */
+    background:
+        /* Vermelhas */
+        radial-gradient(circle at 15% 25%, rgba(230,57,70,0.22), transparent 70%),
+        radial-gradient(circle at 70% 70%, rgba(230,57,70,0.18), transparent 70%),
+        radial-gradient(circle at 45% 85%, rgba(230,57,70,0.15), transparent 70%),
+
+        /* Azuis */
+        radial-gradient(circle at 85% 20%, rgba(23,75,140,0.22), transparent 70%),
+        radial-gradient(circle at 30% 60%, rgba(23,75,140,0.18), transparent 70%),
+        radial-gradient(circle at 55% 10%, rgba(17,40,90,0.15), transparent 70%),
+
+        /* Cinza-claras */
+        radial-gradient(circle at 20% 80%, rgba(200,200,200,0.12), transparent 70%),
+        radial-gradient(circle at 60% 40%, rgba(176,176,176,0.1), transparent 70%),
+        radial-gradient(circle at 75% 50%, rgba(150,150,150,0.08), transparent 70%);
+    filter: blur(60px); /* difusão */
+    opacity: 0.8; /* suaviza intensidade */
+    animation: bubble-drift-1 40s ease-in-out infinite alternate; /* movimento lento */
+    will-change: transform, opacity; /* otimização */
+}
+
+/* HOME (index.html) */
+.hero { /* reforça o radial do hero */
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 20%, #001f52, #031738);
+}
+
+.hero::after { /* luz difusa animada */
+    content: "";
+    position: absolute;
+    width: 200%; /* grande para suavizar movimento */
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle at 30% 30%, rgba(114, 11, 4, 0.15), transparent 60%);
+    animation: move-bg 12s linear infinite; /* rotação lenta */
+    filter: blur(40px);
+    will-change: transform; /* otimização */
+}
+
+/* OUTRAS PÁGINAS (sobre, recursos, download, privacidade) */
+.page-header { /* radial claro (override de seção) */
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 10% 10%, #bad8ff, rgb(77, 145, 255) 80%);
+}
+
+.page-header::after { /* luzes difusas animadas */
+    content: "";
+    position: absolute;
+    width: 180%;
+    height: 180%;
+    top: -40%;
+    left: -40%;
+    background:
+        radial-gradient(circle at 70% 40%, rgba(0, 34, 102, 0.2), transparent 65%),
+        radial-gradient(circle at 30% 70%, rgba(78, 0, 0, 0.212), transparent 65%);
+    animation: move-bg 18s ease-in-out infinite; /* mais lenta/diferente */
+    filter: blur(60px);
+    will-change: transform; /* otimização */
+}
+
+/* Movimento das luzes */
+@keyframes move-bg {
+    0% { transform: translate(0, 0) rotate(0deg); } /* início */
+    50% { transform: translate(10%, 10%) rotate(180deg); } /* meio do caminho */
+    100% { transform: translate(0, 0) rotate(360deg); } /* ciclo completo */
+}
+
+/* Conteúdo por cima do fundo */
+.hero .container,
+.page-header .container {
+    position: relative; /* cria novo contexto */
+    z-index: 1; /* garante que o conteúdo fica acima das bolhas/luzes */
+}
+
+/* =========================================================
+   TEMA CONSISTENTE (DIA / NOITE) – OVERRIDES SEMÂNTICOS
+   Cole este bloco no FINAL do arquivo para ter prioridade.
+   ========================================================= */
+
+/* ---------- Tokens semânticos (padrão: modo CLARO) ---------- */
+:root {
+  /* cores base (modo claro real) */
+  --bg: #ffffff;
+  --text: #0a0a0a;     /* preto quase puro para nítidez */
+  --muted: #333b44;    /* cinza frio para textos secundários */
+  --surface: #f8f9fb;  /* cards e superfícies claras */
+  --surface-2: #f1f4f9;/* superfícies secundárias */
+  --border: rgba(20, 24, 31, 0.12);
+
+  /* marca / ação */
+  --accent: #E63946;   /* vermelho */
+  --accent-2: #174B8C; /* azul de apoio */
+
+  /* hero / header */
+  --hero-start: #ffffff;
+  --hero-end: #e9eef7;
+
+  /* bolhas (claro) */
+  --bubble-red: rgba(230,57,70,0.12);
+  --bubble-blue: rgba(23,75,140,0.10);
+  --bubble-gray: rgba(150,150,150,0.08);
+}
+
+/* ---------- Modo ESCURO ---------- */
+body.dark-mode {
+  --bg: #0b1220;       /* azul escuro profundo */
+  --text: #e7edf6;     /* texto claro */
+  --muted: #a3b1c6;    /* texto secundário claro */
+  --surface: #0f1a2e;
+  --surface-2: #0c1529;
+  --border: rgba(231, 237, 246, 0.12);
+
+  --accent: #E63946;
+  --accent-2: #2a6ac0;
+
+  --hero-start: #001f52;
+  --hero-end: #031738;
+
+  --bubble-red: rgba(230,57,70,0.18);
+  --bubble-blue: rgba(23,75,140,0.18);
+  --bubble-gray: rgba(176,176,176,0.12);
+}
+
+/* ---------- Aplicação global ---------- */
+html, body { /* aplica cores de fundo e texto do tema ativo */
+    background: var(--bg);
+    color: var(--text);
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+  
+.container { color: var(--text); } /* garante cor correta do texto */
+  
+/* ---------- Navbar / Menu ---------- */
+.navbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+.logo, .logo a, .nav-menu a {
+    color: var(--text);
+}
+.nav-menu a:hover,
+.nav-menu a.active {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 10px;
+}
+  
+/* ---------- Botões ---------- */
+.btn { color: #fff; }
+.btn-primary {
+    background: var(--accent);
+    box-shadow: 0 8px 20px rgba(230,57,70,0.25);
+}
+.btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+.btn-secondary:hover {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+  
+/* ---------- Cards, seções e elementos elevados ---------- */
+.feature-card, .download-card, .step-card, .motivation-card,
+.benefit-card, .cta-card, .security-note, .mission-card {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.footer {
+    background: var(--surface-2);
+    color: var(--text);
+    border-top: 1px solid var(--border);
+}
+.footer-section a { color: var(--muted); }
+.footer-section a:hover { color: var(--accent); }
+.footer-bottom { color: var(--muted); }
+  
+/* ---------- Tipografia e textos ---------- */
+h1, h2, h3, h4, h5, h6,
+.page-title, .section-title, .hero-title,
+.footer-logo, .logo {
+    color: var(--text);
+}
+.hero-description, .hero-slogan,
+.motivation-text, .benefit-card p,
+.feature-card p, .download-card p, .security-text p,
+.footer-section p {
+    color: var(--muted);
+}
+  
+/* ---------- HERO / PAGE-HEADER (gradiente + bolhas do topo) ---------- */
+.hero, .page-header {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 20%, var(--hero-start), var(--hero-end));
+}
+  
+.hero::after, .page-header::after { /* bolhas difusas com cores do tema */
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background:
+      radial-gradient(circle at 30% 30%, var(--bubble-red), transparent 60%),
+      radial-gradient(circle at 70% 50%, var(--bubble-blue), transparent 60%),
+      radial-gradient(circle at 40% 75%, var(--bubble-gray), transparent 60%);
+    filter: blur(60px);
+    animation: move-ambient 22s ease-in-out infinite;
+    z-index: 0;
+    transition: background 1s ease, filter 1s ease;
+}
+.hero .container, .page-header .container { position: relative; z-index: 1; }
+  
+@keyframes move-ambient {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(18px, -12px) scale(1.03); }
+    66%  { transform: translate(-16px, 14px) scale(0.98); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+  
+/* ---------- Seletor de idioma, inputs e bordas ---------- */
+.language-select {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.qrcode-container {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+}
+  
+/* ---------- Links in-text ---------- */
+a:not(.btn) { color: var(--accent-2); }
+a:not(.btn):hover { color: var(--accent); }
+  
+/* ---------- Ajustes de seções antigas ---------- */
+.daily-motivation,
+.features-preview,
+.installation-section,
+.cta-section,
+.page-header {
+    background: var(--surface-2);
+}
+
+/* ======== Correção de fundo e texto em “Nossa Missão” ======== */
+.mission-section,
+.mission-card {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.mission-text,
+.mission-signature {
+  color: var(--muted);
+}
+
+/* ======== Política de Privacidade - aviso final ======== */
+.privacy-content div[style*="background"] {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.privacy-content div[style*="background"] p {
+  color: var(--muted);
+}
+
+/* =============================
+   Botão moderno de modo dia/noite
+   ============================= */
+.theme-btn { /* botão toggle tema */
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.theme-btn:hover {
+  transform: scale(1.05);
+  background: var(--surface-2);
+}
+.theme-btn .icon-sun,
+.theme-btn .icon-moon {
+  position: absolute;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+/* ícone: sol no claro e lua no escuro */
+body:not(.dark-mode) .icon-sun { opacity: 1; transform: translateY(0); }
+body:not(.dark-mode) .icon-moon { opacity: 0; transform: translateY(10px); }
+body.dark-mode .icon-moon { opacity: 1; transform: translateY(0); }
+body.dark-mode .icon-sun { opacity: 0; transform: translateY(-10px); }
+
+/* =============================
+   FIX: contraste dos botões no hover
+   (impede regras globais de <a> afetarem .btn)
+   ============================= */
+a.btn, .btn, .btn:visited { 
+    color: #fff !important;  /* mantém legibilidade */
+    text-decoration: none !important; /* remove sublinhado */
+}
+.btn-primary {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border: none !important;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background: color-mix(in srgb, var(--accent) 92%, black 8%) !important;
+    color: #fff !important;
+    box-shadow: 0 12px 28px rgba(230,57,70,0.35);
+}
+.btn-secondary {
+    background: transparent !important;
+    border: 2px solid var(--accent) !important;
+    color: var(--accent) !important;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+    color: var(--accent) !important;
+}
+a:not(.btn) { color: var(--accent-2); }
+a:not(.btn):hover { color: var(--accent); }
