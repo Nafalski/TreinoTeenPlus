@@ -1,2 +1,4 @@
-# TreinoTeenPlus
-Plataforma que une inteligência artificial, treino físico e alimentação saudável para ajudar jovens e adultos a atingir seus objetivos.
+# AI Personal Trainer – Website (Prototype)
+
+This repository contains the **website prototype** for my future **AI Personal Trainer App**.  
+It presents the project’s concept, visual identity, and main sections.
